@@ -7,6 +7,7 @@ import { baseURL } from '../config/AxiosHelper';
 import { Stomp } from '@stomp/stompjs';
 import toast from 'react-hot-toast';
 import { getMessagesApi } from '../services/RoomService';
+import { timeAgo } from '../config/helper';
 
 
 const Chat = () => {
@@ -39,7 +40,12 @@ const Chat = () => {
             }
         
         }
-        loadMessages();
+
+        if(connection)
+        {
+            loadMessages();
+        }
+
     }, []);
 
 
@@ -147,7 +153,9 @@ function handleLogout()
                         }>
                             <div className={` dark:text-white my-2 ${message.sender === currentUser ? "bg-blue-900" : "bg-black"} max-w-xs rounded p-2 `}>
                                 <p className="text-sm dark:text-gray-400 font-bold">{message.sender}</p>
+                                <hr />
                                 <p >{message.content} </p>
+                                <p className="text-xs dark:text-gray-400 font-semibold">{timeAgo(message.time)}</p>  {/* Display time */}
                             </div>
                         </div>
                         
