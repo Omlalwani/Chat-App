@@ -79,7 +79,9 @@ useEffect(() => {
             });
         });
     };
-    connectWebSocket();
+    if (connection) {
+        connectWebSocket();
+      }
 },[roomId]);
 
 
@@ -168,6 +170,13 @@ function handleLogout()
                 <input type="text" name="message"
                 value = {input}
                 onChange={e => setInput(e.target.value)}
+                onKeyDown={(e) => 
+                    {
+                        if(e.key === "Enter")
+                        {
+                            sendMessage();
+                        }
+                    }}
                 placeholder="Type your message here...."
                 className="focus:outline-none w-full dark:bg-gray-900 px-1 py-2 h-full"/>
 
